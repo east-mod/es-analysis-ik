@@ -12,6 +12,8 @@ import java.io.IOException;
 
 public class IkAnalyzerProvider extends AbstractIndexAnalyzerProvider<IKAnalyzer> {
 
+    private final IKAnalyzer ikAnalyzer;
+
     public IkAnalyzerProvider(IndexSettings indexSettings,
                               Environment environment,
                               String name,
@@ -19,12 +21,12 @@ public class IkAnalyzerProvider extends AbstractIndexAnalyzerProvider<IKAnalyzer
                               boolean useSmart) {
         super(indexSettings, name, settings);
         Configuration configuration = new Configuration(environment, settings).setUseSmart(useSmart);
-
+        this.ikAnalyzer = new IKAnalyzer(configuration);
     }
 
     @Override
     public IKAnalyzer get() {
-        return null;
+        return this.ikAnalyzer;
     }
 
     public static class AnalysisProvider implements

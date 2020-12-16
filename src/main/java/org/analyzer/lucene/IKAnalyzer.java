@@ -1,6 +1,8 @@
 package org.analyzer.lucene;
 
+import org.analyzer.config.Configuration;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.Tokenizer;
 
 /**
  * AUTHOR: zorigt
@@ -9,8 +11,15 @@ import org.apache.lucene.analysis.Analyzer;
  * TIME  : 10:08
  */
 public class IKAnalyzer extends Analyzer {
+    private final Configuration configuration;
+
+    public IKAnalyzer(Configuration configuration) {
+        this.configuration = configuration;
+    }
+
     @Override
     protected TokenStreamComponents createComponents(String s) {
-        return null;
+        Tokenizer tokenizer = new IKTokenizer(configuration);
+        return new TokenStreamComponents(tokenizer);
     }
 }
